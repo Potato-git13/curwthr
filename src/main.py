@@ -1,8 +1,6 @@
 from urllib.request import urlopen as ureq
 from urllib import error as urlerr
 from bs4 import BeautifulSoup as soup
-import re
-import time as t
 import sys
 from opts import getOpts
 
@@ -28,23 +26,30 @@ page_soup = soup(raw, "html.parser")
 
 # Output the requested info
 # If nothing is request output everything
-if (options.celsius):
-    temps = page_soup.findAll("td", {"class":"t"})
+if (options.temp_only):
+    temp = page_soup.findAll("td", {"class":"t"})[0].text
 
-    temp = temps[0].text
-    print(f"{temp}°C")
+    # Write the output in the desired unit(default -˚C)
+    if (options.kelvin):
+        print(f"{int(temp)+273}K")
+    else:
+        print(f"{temp}˚C")
 elif (options.time):
-    times = page_soup.findAll("td", {"class":"meteoSI-th"})
+    time = page_soup.findAll("td", {"class":"meteoSI-th"})[0].text
 
-    time = times[0].text
     print(f"{time}")
+elif (options.weather):
+    weather = page_soup.findAll("td", {"class":"wwsyn_longText"})[0].text
+
+    print(f"{weather}")
 else:
-    temps = page_soup.findAll("td", {"class":"t"})
-    weathers = page_soup.findAll("td", {"class":"wwsyn_longText"})
-    times = page_soup.findAll("td", {"class":"meteoSI-th"})
+    temp = page_soup.findAll("td", {"class":"t"})[0].text
+    weather = page_soup.findAll("td", {"class":"wwsyn_longText"})[0].text
+    time = page_soup.findAll("td", {"class":"meteoSI-th"})[0].text
 
-    temp = temps[0].text
-    weather = weathers[0].text
-    time = times[0].text
-
-    print(f"{time}: {weather} {temp}°C")
+    print(f"{time}: {weather} ", end='')
+    # Write the output in the desired unit(default -˚C)
+    if (options.kelvin):
+        print(f"{int(temp)+273}K")
+    else:
+        print(f"{temp}˚C")
