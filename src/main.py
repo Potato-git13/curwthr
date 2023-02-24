@@ -5,12 +5,31 @@ import sys
 from opts import getOpts
 
 options = getOpts(sys.argv[1:])
+
+cities = [
+    options.ljubljana, 
+    options.novomesto, 
+    options.maribor, 
+    options.murska_sobota,
+    options.nova_gorica,
+    options.portoroz
+]
+
+urls = {
+    options.ljubljana     : "https://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_LJUBL-ANA_BEZIGRAD_history.html",
+    options.novomesto     : "https://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_NOVO-MES_history.html",
+    options.maribor       : "https://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_MARIBOR_SLIVNICA_history.html",
+    options.murska_sobota : "https://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_MURSK-SOB_history.html",
+    options.nova_gorica   : "https://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_NOVA-GOR_history.html",
+    options.portoroz      : "https://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_PORTOROZ_SECOVLJE_history.html",
+}
+
 meteo_url = ""
 # Select the correct url
-if (options.ljubljana):
-    meteo_url = "https://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_LJUBL-ANA_BEZIGRAD_history.html"
-elif (options.novomesto):
-    meteo_url = "https://meteo.arso.gov.si/uploads/probase/www/observ/surface/text/en/observation_NOVO-MES_history.html" 
+for city in cities:
+    if (city):
+        meteo_url = urls[city]
+        break
 
 # Try to get the website
 try:
