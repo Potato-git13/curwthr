@@ -2,7 +2,7 @@ import argparse
 import sys
 
 def getOpts(args=sys.argv[1:]):
-    parser = argparse.ArgumentParser(description="curwthr")
+    parser = argparse.ArgumentParser(description="curwthr - Display the current weather and temperature of a selected city.")
 
     parser.add_argument("-lj", "--ljubljana",       action="store_true", help="Ljubljana")
     parser.add_argument("-nm", "--novomesto",       action="store_true", help="Novomesto")
@@ -10,9 +10,11 @@ def getOpts(args=sys.argv[1:]):
     parser.add_argument("-ms", "--murska-sobota",   action="store_true", help="Murska Sobota")
     parser.add_argument("-ng", "--nova-gorica",     action="store_true", help="Nova Gorica")
     parser.add_argument("-po", "--portoroz",        action="store_true", help="Portorož")
+    
     parser.add_argument("-to", "--temp-only",       action="store_true", help="Show only the temperature(default in degrees Celsius)")
     parser.add_argument("-c",  "--celsius",         action="store_true", help="Show the temperature in degrees Celsius(default)")
     parser.add_argument("-k",  "--kelvin",          action="store_true", help="Show the temperature in Kelvin")
+    
     parser.add_argument("-t",  "--time",            action="store_true", help="Show only the time")
     parser.add_argument("-w",  "--weather",         action="store_true", help="Show only the weather")
 
